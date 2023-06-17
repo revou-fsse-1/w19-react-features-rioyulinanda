@@ -24,11 +24,11 @@ const AuthForm: React.FC = () => {
 
     try {
       if (isRegistering) {
-        const response = await axios.post(`${API_BASE_URL}/CrudUsers`, {
+        await axios.post(`${API_BASE_URL}/CrudUsers`, {
           email,
           password,
         });
-        console.log("Registration successful:", response.data);
+        console.log("Registration successful");
       } else {
         await login(email, password);
         console.log("Login successful");

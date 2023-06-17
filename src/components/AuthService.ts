@@ -8,15 +8,20 @@ interface LoginResponse {
 const API_BASE_URL = "https://648b04fe17f1536d65ea23c6.mockapi.io";
 
 export const login = async (email: string, password: string): Promise<void> => {
-  const response = await axios.post<LoginResponse>(
-    `${API_BASE_URL}/SimpleCrud`,
-    {
-      email,
-      password,
-    }
-  );
-  const token = response.data.token;
-  localStorage.setItem("token", token); // Store the token in local storage
+  try {
+    const response = await axios.post<LoginResponse>(
+      `${API_BASE_URL}/CrudUsers`,
+      {
+        email,
+        password,
+      }
+    );
+    const token = response.data.token;
+    localStorage.setItem("token", token); // Store the token in local storage
+  } catch (error) {
+    console.error("Error:", error);
+    throw new Error("Login failed");
+  }
 };
 
 export const logout = (): void => {
